@@ -77,11 +77,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\FormMqtt.cs">
+    <Compile Include="Forms\FormWatch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormMqtt.Designer.cs">
-      <DependentUpon>FormMqtt.cs</DependentUpon>
+    <Compile Include="Forms\FormWatch.Designer.cs">
+      <DependentUpon>FormWatch.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmAnalogDuzenle.cs">
       <SubType>Form</SubType>
@@ -116,11 +116,12 @@
     <Compile Include="Models\AnalogDevice.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\DigitalDevice.cs" />
+    <Compile Include="Models\SystemState.cs" />
     <Compile Include="MQTT\Mqtt.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\FormMqtt.resx">
-      <DependentUpon>FormMqtt.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormWatch.resx">
+      <DependentUpon>FormWatch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmAnalogDuzenle.resx">
       <DependentUpon>FrmAnalogDuzenle.cs</DependentUpon>

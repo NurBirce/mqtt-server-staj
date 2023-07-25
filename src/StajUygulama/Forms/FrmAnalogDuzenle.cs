@@ -28,21 +28,18 @@ namespace StajUygulama.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            frm.deviceList[selectedIndex].Name = txtName.Text;
-            frm.deviceList[selectedIndex].Topic = txtTopic.Text;
+            frm.systemState.analogDeviceList[selectedIndex].Name = txtName.Text;
             deviceGoruntule();
         }
 
         private void deviceGoruntule()
         {
             dataGridView1.Rows.Clear();
-            Object[] dizi = new object[3];
+            Object[] dizi = new object[1];
 
-            for (int i = 0; i < frm.deviceList.Count; i++)
+            for (int i = 0; i < frm.systemState.analogDeviceList.Count; i++)
             {
-                dizi[0] = frm.deviceList[i].Name;
-                dizi[1] = frm.deviceList[i].Topic;
+                dizi[0] = frm.systemState.analogDeviceList[i].Name;
                 dataGridView1.Rows.Add(dizi);
             }
         }
@@ -54,15 +51,6 @@ namespace StajUygulama.Forms
 
         int selectedIndex;
         private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            selectedIndex = dataGridView1.CurrentRow.Index;
-
-            txtName.Text = frm.deviceList[selectedIndex].Name;
-            txtTopic.Text = frm.deviceList[selectedIndex].Topic;
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }

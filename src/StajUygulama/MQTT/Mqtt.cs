@@ -14,7 +14,11 @@ namespace StajUygulama.MQTT
     class Mqtt
     {
         IMqttClient mqttClient;
-        FormMqtt formMqtt;
+        FormMain formMain;
+        public Mqtt(FormMain fm)
+        {
+            formMain = fm;
+        }
 
         public async Task connect_client()
         {
@@ -40,26 +44,25 @@ namespace StajUygulama.MQTT
             await mqttClient.DisconnectAsync(mqttClientDisconnectOptions, CancellationToken.None);
         }
 
-        public async Task Handle_Received_Application_Message()
+        public void Handle_Received_Application_Message()
         {
-            var mqttFactory = new MqttFactory();
-            
-
             mqttClient.ApplicationMessageReceivedAsync += e =>
             {
-               e.ApplicationMessage.Topic 
-                Console.WriteLine("Received application message.");
-                lblMessage.Invoke(new Action(() =>
-                {
-                    lblMessage.Text = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-                }));
+                //e.ApplicationMessage.Topic 
+                // Console.WriteLine("Received application message.");
+                // lblMessage.Invoke(new Action(() =>
+                // {
+                //     lblMessage.Text = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
+                // }));
+                var strArr = e.ApplicationMessage.Topic.Split('/');
+                var id = strArr[strArr.Length-1];
 
+                formMain.frmWatch?.updateDeviceValue(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                Console.WriteLine("topic: " + e.ApplicationMessage.Topic);
                 Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
 
                 return Task.CompletedTask;
             };
-
-           
         }
 
         public void subscribe(string topic)

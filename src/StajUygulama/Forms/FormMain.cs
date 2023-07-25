@@ -18,51 +18,70 @@ namespace StajUygulama.Forms
 {
     public partial class FormMain : Form
     {
-        internal List<Device<float>> deviceList = new List<Device<float>>();
-        internal List<Device<bool>> deviceList2 = new List<Device<bool>>();
-        Mqtt mqttObject = new Mqtt();
+        internal SystemState systemState = new SystemState();
+
+        Mqtt mqttObject;
         public FormMain()
         {
             InitializeComponent();
+            mqttObject = new Mqtt(this);
         }
 
         FrmAnalogEkle frmAEkle;
         private void ekleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmAEkle = new FrmAnalogEkle(this);
-            frmAEkle.Show();
+            frmAEkle.ShowDialog();
         }
 
         FrmAnalogDuzenle frmADuzenle;
         private void düzenleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmADuzenle = new FrmAnalogDuzenle(this);
-            frmADuzenle.Show();
+            frmADuzenle.ShowDialog();
         }
 
         FrmDigitalEkle frmDEkle;
         private void ekleToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             frmDEkle = new FrmDigitalEkle(this);
-            frmDEkle.Show();
+            frmDEkle.ShowDialog();
         }
 
         FrmDigitalDuzenle frmDDuzenle;
         private void düzenleToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             frmDDuzenle = new FrmDigitalDuzenle(this);
-            frmDDuzenle.Show();
+            frmDDuzenle.ShowDialog();
         }
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            mqttObject.initiliaze();
+            initialization();
+        }
 
-            var dList =
-               JsonSerializer.Deserialize<List<Device<float>>>(File.ReadAllText("KaratalDevice.json"));
-            if(dList != null)
+        private async Task initialization()
+        {
+            await mqttObject.initiliaze();
+
+            SystemState sysState = null;
+            try
             {
-                deviceList = dList;
+                sysState = JsonSerializer.Deserialize<SystemState>(File.ReadAllText("KaratalDevice.json"));
+            }
+            catch { }
+
+            if (sysState != null)
+            {
+                systemState = sysState;
+                foreach (var d in systemState.analogDeviceList)
+                {
+                    mqttObject.subscribe("karatal2023fatmaproje/" + d.Topic);
+                }
+                foreach (var d in systemState.digitalDeviceList)
+                {
+                    mqttObject.subscribe("karatal2023fatmaproje/" + d.Topic);
+                }
             }
         }
 
@@ -76,11 +95,27 @@ namespace StajUygulama.Forms
             mqttObject.disconnect();
         }
 
-        FormMqtt formMqtt;
+        public FormWatch frmWatch;
         private void viewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            formMqtt = new FormMqtt(this);
-            formMqtt.Show();
+            if(frmWatch == null)
+            {
+                frmWatch = new FormWatch(this);
+                //frmWatch.Owner = this;
+                frmWatch.MdiParent = this;
+                frmWatch.FormClosed += FrmWatch_FormClosed;
+                frmWatch.Show();
+            }
+            else
+            {
+                frmWatch.Activate();
+            }
+        }
+
+        private void FrmWatch_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmWatch?.Dispose();
+            frmWatch = null;
         }
     }
 }

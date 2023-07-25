@@ -46,12 +46,15 @@ namespace StajUygulama.Forms
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.testMainToolStripMenuItem,
             this.mqttToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(10, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(990, 31);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -61,7 +64,7 @@ namespace StajUygulama.Forms
             this.analogToolStripMenuItem,
             this.digitalToolStripMenuItem});
             this.testMainToolStripMenuItem.Name = "testMainToolStripMenuItem";
-            this.testMainToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.testMainToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
             this.testMainToolStripMenuItem.Text = "Device";
             // 
             // analogToolStripMenuItem
@@ -70,20 +73,20 @@ namespace StajUygulama.Forms
             this.ekleToolStripMenuItem,
             this.düzenleToolStripMenuItem});
             this.analogToolStripMenuItem.Name = "analogToolStripMenuItem";
-            this.analogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.analogToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.analogToolStripMenuItem.Text = "Analog";
             // 
             // ekleToolStripMenuItem
             // 
             this.ekleToolStripMenuItem.Name = "ekleToolStripMenuItem";
-            this.ekleToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.ekleToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
             this.ekleToolStripMenuItem.Text = "Ekle";
             this.ekleToolStripMenuItem.Click += new System.EventHandler(this.ekleToolStripMenuItem_Click);
             // 
             // düzenleToolStripMenuItem
             // 
             this.düzenleToolStripMenuItem.Name = "düzenleToolStripMenuItem";
-            this.düzenleToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.düzenleToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
             this.düzenleToolStripMenuItem.Text = "Düzenle";
             this.düzenleToolStripMenuItem.Click += new System.EventHandler(this.düzenleToolStripMenuItem_Click);
             // 
@@ -93,20 +96,20 @@ namespace StajUygulama.Forms
             this.ekleToolStripMenuItem1,
             this.düzenleToolStripMenuItem1});
             this.digitalToolStripMenuItem.Name = "digitalToolStripMenuItem";
-            this.digitalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.digitalToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.digitalToolStripMenuItem.Text = "Digital";
             // 
             // ekleToolStripMenuItem1
             // 
             this.ekleToolStripMenuItem1.Name = "ekleToolStripMenuItem1";
-            this.ekleToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
+            this.ekleToolStripMenuItem1.Size = new System.Drawing.Size(146, 26);
             this.ekleToolStripMenuItem1.Text = "Ekle";
             this.ekleToolStripMenuItem1.Click += new System.EventHandler(this.ekleToolStripMenuItem1_Click);
             // 
             // düzenleToolStripMenuItem1
             // 
             this.düzenleToolStripMenuItem1.Name = "düzenleToolStripMenuItem1";
-            this.düzenleToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
+            this.düzenleToolStripMenuItem1.Size = new System.Drawing.Size(146, 26);
             this.düzenleToolStripMenuItem1.Text = "Düzenle";
             this.düzenleToolStripMenuItem1.Click += new System.EventHandler(this.düzenleToolStripMenuItem1_Click);
             // 
@@ -117,37 +120,40 @@ namespace StajUygulama.Forms
             this.disconnectToolStripMenuItem,
             this.viewToolStripMenuItem});
             this.mqttToolStripMenuItem.Name = "mqttToolStripMenuItem";
-            this.mqttToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.mqttToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.mqttToolStripMenuItem.Text = "Mqtt";
             // 
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
             // disconnectToolStripMenuItem
             // 
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.disconnectToolStripMenuItem.Text = "Disconnect";
             this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.viewToolStripMenuItem.Text = "View";
             this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(990, 603);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "FormMain";
             this.Text = "FormMainn";
             this.Load += new System.EventHandler(this.FormMain_Load);

@@ -23,24 +23,22 @@ namespace StajUygulama.Forms
 
         private void FrmDigitalDuzenle_Load(object sender, EventArgs e)
         {
-
+            deviceGoruntule();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frm.deviceList2[selectedIndex].Name = txtName.Text;
-            frm.deviceList2[selectedIndex].Topic = txtTopic.Text;
+            frm.systemState.digitalDeviceList[selectedIndex].Name = txtName.Text;
             deviceGoruntule();
         }
 
         private void deviceGoruntule()
         {
             dataGridView1.Rows.Clear();
-            Object[] dizi = new object[3];
-            for(int i = 0; i < frm.deviceList2.Count; i++)
+            object[] dizi = new object[1];
+            for(int i = 0; i < frm.systemState.digitalDeviceList.Count; i++)
             {
-                dizi[0] = frm.deviceList2[i].Name;
-                dizi[1] = frm.deviceList2[i].Topic;
+                dizi[0] = frm.systemState.digitalDeviceList[i].Name;
                 dataGridView1.Rows.Add(dizi);
             }
         }
@@ -50,8 +48,7 @@ namespace StajUygulama.Forms
         {
             selectedIndex = dataGridView1.CurrentRow.Index;
 
-            txtName.Text = frm.deviceList2[selectedIndex].Name;
-            txtTopic.Text = frm.deviceList2[selectedIndex].Topic;
+            txtName.Text = frm.systemState.digitalDeviceList[selectedIndex].Name;
         }
     }
 }

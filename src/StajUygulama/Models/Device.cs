@@ -15,7 +15,7 @@ namespace StajUygulama.Models
         internal Device(string name, string topic)
         {
             this.Name = name;
-            this.Topic = topic;
+            Topic = topic;
         }
 
         public string Name { get; set; }

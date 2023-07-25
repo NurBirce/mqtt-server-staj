@@ -23,11 +23,6 @@ namespace StajUygulama.Forms
             
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void FrmAnalogEkle_Load(object sender, EventArgs e)
         {
             deviceGoruntule();
@@ -36,12 +31,11 @@ namespace StajUygulama.Forms
         
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            frm.deviceList.Add(new Device<float>(txtName.Text,txtTopic.Text));
+            frm.systemState.analogDeviceList.Add(new Device<float>(txtName.Text, frm.systemState.getLastTopicId().ToString()));
             deviceGoruntule();
             var options = new JsonSerializerOptions { WriteIndented = true };
             string fileName = "KaratalDevice.json";
-            string jsonString = JsonSerializer.Serialize(frm.deviceList,options);
+            string jsonString = JsonSerializer.Serialize(frm.systemState, options);
             File.WriteAllText(fileName, jsonString);
         }
 
@@ -50,15 +44,13 @@ namespace StajUygulama.Forms
             dataGridView1.Rows.Clear();
             Object[] dizi = new object[3];
 
-            for(int i = 0; i < frm.deviceList.Count; i++)
+            for(int i = 0; i < frm.systemState.analogDeviceList.Count; i++)
                 {
-                    dizi[0] = frm.deviceList[i].Name;
-                    dizi[1] = frm.deviceList[i].Topic;
+                    dizi[0] = frm.systemState.analogDeviceList[i].Name;
                     dataGridView1.Rows.Add(dizi);
                 }
         }
 
-        
         private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             
