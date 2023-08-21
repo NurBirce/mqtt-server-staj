@@ -8,5 +8,6 @@ namespace StajUygulama.Models
 {
     class AnalogDevice : Device<float>
     {
+    
     }
 }

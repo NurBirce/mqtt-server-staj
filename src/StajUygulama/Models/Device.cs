@@ -23,5 +23,6 @@ namespace StajUygulama.Models
         public string Topic { get; set; }
 
         public T Value { get; set; }
+
     }
 }

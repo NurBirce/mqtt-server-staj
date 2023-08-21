@@ -83,11 +83,11 @@
     <Compile Include="Forms\FormWatch.Designer.cs">
       <DependentUpon>FormWatch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmAnalogDuzenle.cs">
+    <Compile Include="Forms\FrmAnalogYonetim.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmAnalogDuzenle.Designer.cs">
-      <DependentUpon>FrmAnalogDuzenle.cs</DependentUpon>
+    <Compile Include="Forms\FrmAnalogYonetim.Designer.cs">
+      <DependentUpon>FrmAnalogYonetim.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmAnalogEkle.cs">
       <SubType>Form</SubType>
@@ -95,11 +95,11 @@
     <Compile Include="Forms\FrmAnalogEkle.Designer.cs">
       <DependentUpon>FrmAnalogEkle.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmDigitalDuzenle.cs">
+    <Compile Include="Forms\FrmDigitalYonetim.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmDigitalDuzenle.Designer.cs">
-      <DependentUpon>FrmDigitalDuzenle.cs</DependentUpon>
+    <Compile Include="Forms\FrmDigitalYonetim.Designer.cs">
+      <DependentUpon>FrmDigitalYonetim.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmDigitalEkle.cs">
       <SubType>Form</SubType>
@@ -123,14 +123,14 @@
     <EmbeddedResource Include="Forms\FormWatch.resx">
       <DependentUpon>FormWatch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmAnalogDuzenle.resx">
-      <DependentUpon>FrmAnalogDuzenle.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FrmAnalogYonetim.resx">
+      <DependentUpon>FrmAnalogYonetim.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmAnalogEkle.resx">
       <DependentUpon>FrmAnalogEkle.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmDigitalDuzenle.resx">
-      <DependentUpon>FrmDigitalDuzenle.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FrmDigitalYonetim.resx">
+      <DependentUpon>FrmDigitalYonetim.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmDigitalEkle.resx">
       <DependentUpon>FrmDigitalEkle.cs</DependentUpon>

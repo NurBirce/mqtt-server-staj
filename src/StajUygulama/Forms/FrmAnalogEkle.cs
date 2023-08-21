@@ -45,15 +45,10 @@ namespace StajUygulama.Forms
             Object[] dizi = new object[3];
 
             for(int i = 0; i < frm.systemState.analogDeviceList.Count; i++)
-                {
+            {
                     dizi[0] = frm.systemState.analogDeviceList[i].Name;
                     dataGridView1.Rows.Add(dizi);
-                }
-        }
-
-        private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            
+            }
         }
     }
 }
