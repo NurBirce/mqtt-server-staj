@@ -81,26 +81,11 @@ namespace StajUygulama.Forms
 
             if (e.ColumnIndex == dgvDigital.Columns["clmBtn"].Index)
             {
-                bool deger = Convert.ToBoolean(dgvDigital.CurrentRow.Cells[1].Value.ToString());
+                string currentValuStr = dgvDigital.CurrentRow.Cells[1].Value.ToString();
 
-                if (deger == false)
-                {
-                    deger = true;
-                    dgvDigital.CurrentRow.Cells[1].Value = deger;
-                    selectedIndex = dgvDigital.CurrentRow.Index;
-                    fm.systemState.digitalDeviceList[selectedIndex].Value = deger;
-                    dgvDigital.CurrentRow.Cells[1].Style.BackColor = Color.Green;
-                    
-                }
-                else
-                {
-                    deger = false;
-                    dgvDigital.CurrentRow.Cells[1].Value = deger;
-                    selectedIndex = dgvDigital.CurrentRow.Index;
-                    fm.systemState.digitalDeviceList[selectedIndex].Value = deger;
-                    dgvDigital.CurrentRow.Cells[1].Style.BackColor = Color.Red;
+                int deger = currentValuStr == "0" ? 1 : 0;
 
-                }
+                dgvDigital.CurrentRow.Cells[1].Value = deger;
             }
         }    
     }

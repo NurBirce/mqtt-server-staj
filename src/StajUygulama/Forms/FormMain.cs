@@ -138,6 +138,7 @@ namespace StajUygulama.Forms
             frmWatch = null;
         }
 
+        Random rnd = new Random(1000);
         public void timer1_Tick(object sender, EventArgs e)
         {
             SystemState sysState = null;
@@ -151,14 +152,17 @@ namespace StajUygulama.Forms
             if (sysState != null)
             {
                 systemState = sysState;
+                int sayi;
                 foreach (var d in systemState.analogDeviceList)
                 {
-                    mqttObject.Publish_Application_Message(d.Value.ToString(), d.Topic);
+                    sayi = rnd.Next(1, 1000);
+                    mqttObject.Publish_Application_Message(sayi.ToString(), d.Topic);
                 }
-                foreach (var d in systemState.digitalDeviceList)
-                {
-                   mqttObject.Publish_Application_Message(d.Value.ToString(), d.Topic);
-                }
+                //foreach (var d in systemState.digitalDeviceList)
+                //{
+                //    sayi = rnd.Next(0, 1100) % 2;
+                //    mqttObject.Publish_Application_Message(sayi.ToString(), d.Topic);
+                //}
             }
         }
 

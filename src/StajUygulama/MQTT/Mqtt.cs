@@ -83,12 +83,9 @@ namespace StajUygulama.MQTT
             Handle_Received_Application_Message();
         }
 
-        Random rnd = new Random(1000);
+        
         public async Task Publish_Application_Message(string msg, string topic)
         {
-            int sayi = rnd.Next(1, 1000);
-            msg = sayi.ToString();
-
             var mqttFactory = new MqttFactory();
             
             var applicationMessage = new MqttApplicationMessageBuilder()
