@@ -1,0 +1,37 @@
+{
+  "analogDeviceList": [
+    {
+      "Name": "analog1",
+      "Topic": "3",
+      "Value": 0
+    },
+    {
+      "Name": "analog4",
+      "Topic": "9",
+      "Value": 0
+    },
+    {
+      "Name": "analog2",
+      "Topic": "14",
+      "Value": 0
+    }
+  ],
+  "digitalDeviceList": [
+    {
+      "Name": "digital3",
+      "Topic": "13",
+      "Value": false
+    },
+    {
+      "Name": "digital1",
+      "Topic": "15",
+      "Value": false
+    },
+    {
+      "Name": "digital2",
+      "Topic": "16",
+      "Value": false
+    }
+  ],
+  "lastTopic": 16
+}
