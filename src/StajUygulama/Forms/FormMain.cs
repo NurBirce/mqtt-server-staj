@@ -96,11 +96,11 @@ namespace StajUygulama.Forms
                 systemState = sysState;
                 foreach (var d in systemState.analogDeviceList)
                 {
-                    mqttObject.subscribe("karatal2023fatmaproje/" + d.Topic);
+                    mqttObject.subscribe(d.Topic);
                 }
                 foreach (var d in systemState.digitalDeviceList)
                 {
-                    mqttObject.subscribe("karatal2023fatmaproje/" + d.Topic);
+                    mqttObject.subscribe(d.Topic);
                 }
             }
         }

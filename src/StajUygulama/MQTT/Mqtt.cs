@@ -69,7 +69,7 @@ namespace StajUygulama.MQTT
         public void subscribe(string topic)
         {
             var mqttSubscribeOptions = new MqttTopicFilterBuilder()
-               .WithTopic(topic)
+               .WithTopic("karatal2023fatmaproje/"+topic)
                .WithAtLeastOnceQoS()
                .Build();
 
@@ -83,16 +83,16 @@ namespace StajUygulama.MQTT
             Handle_Received_Application_Message();
         }
 
+        Random rnd = new Random(1000);
         public async Task Publish_Application_Message(string msg, string topic)
         {
-            Random rnd = new Random();
-            int sayi = rnd.Next(1, 10);
+            int sayi = rnd.Next(1, 1000);
             msg = sayi.ToString();
 
             var mqttFactory = new MqttFactory();
             
             var applicationMessage = new MqttApplicationMessageBuilder()
-                 .WithTopic(topic)
+                 .WithTopic("karatal2023fatmaproje/" + topic)
                  .WithPayload(msg)
                  .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                  .Build();
