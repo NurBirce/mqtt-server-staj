@@ -23,7 +23,7 @@ namespace StajUygulama.Forms
     {
         internal SystemState systemState = new SystemState();
 
-        Mqtt mqttObject;
+        internal Mqtt mqttObject;
         public FormMain()
         {
             InitializeComponent();
