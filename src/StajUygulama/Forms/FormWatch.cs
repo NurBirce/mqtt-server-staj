@@ -9,6 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.IO;
 
 namespace StajUygulama.Forms
 {
@@ -54,7 +58,7 @@ namespace StajUygulama.Forms
                 topicDgvrDictionary.Add(dd.Topic.ToLower(), dgvDigital.Rows[nRowIndex]);
             }
         }
-
+        
         public void updateDeviceValue(string topic , string value)
         {
             fm.Invoke(new Action(() =>
@@ -66,5 +70,38 @@ namespace StajUygulama.Forms
                 }
             }));
         }
+        
+        int selectedIndex;
+    private void dgvDigital_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            if (e.ColumnIndex == dgvDigital.Columns["clmBtn"].Index)
+            {
+                bool deger = Convert.ToBoolean(dgvDigital.CurrentRow.Cells[1].Value.ToString());
+
+                if (deger == false)
+                {
+                    deger = true;
+                    dgvDigital.CurrentRow.Cells[1].Value = deger;
+                    selectedIndex = dgvDigital.CurrentRow.Index;
+                    fm.systemState.digitalDeviceList[selectedIndex].Value = deger;
+                    dgvDigital.CurrentRow.Cells[1].Style.BackColor = Color.Green;
+                    
+                }
+                else
+                {
+                    deger = false;
+                    dgvDigital.CurrentRow.Cells[1].Value = deger;
+                    selectedIndex = dgvDigital.CurrentRow.Index;
+                    fm.systemState.digitalDeviceList[selectedIndex].Value = deger;
+                    dgvDigital.CurrentRow.Cells[1].Style.BackColor = Color.Red;
+
+                }
+            }
+        }    
     }
 }

@@ -33,6 +33,7 @@
             this.dgvDigital = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmBtn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -63,7 +64,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(520, 508);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(649, 508);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel2
@@ -71,9 +72,9 @@
             this.panel2.Controls.Add(this.dgvDigital);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(263, 3);
+            this.panel2.Location = new System.Drawing.Point(327, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(254, 502);
+            this.panel2.Size = new System.Drawing.Size(319, 502);
             this.panel2.TabIndex = 1;
             // 
             // dgvDigital
@@ -84,16 +85,19 @@
             this.dgvDigital.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDigital.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2});
+            this.dataGridViewTextBoxColumn2,
+            this.clmBtn});
             this.dgvDigital.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDigital.Location = new System.Drawing.Point(0, 32);
             this.dgvDigital.Name = "dgvDigital";
+            this.dgvDigital.ReadOnly = true;
             this.dgvDigital.RowHeadersVisible = false;
             this.dgvDigital.RowHeadersWidth = 51;
             this.dgvDigital.RowTemplate.Height = 24;
             this.dgvDigital.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDigital.Size = new System.Drawing.Size(254, 470);
+            this.dgvDigital.Size = new System.Drawing.Size(319, 470);
             this.dgvDigital.TabIndex = 3;
+            this.dgvDigital.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDigital_CellClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -101,6 +105,7 @@
             this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -109,7 +114,18 @@
             this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 80;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn2.Width = 50;
+            // 
+            // clmBtn
+            // 
+            this.clmBtn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clmBtn.HeaderText = "Turn";
+            this.clmBtn.Name = "clmBtn";
+            this.clmBtn.ReadOnly = true;
+            this.clmBtn.Text = "On/Off";
+            this.clmBtn.UseColumnTextForButtonValue = true;
+            this.clmBtn.Width = 44;
             // 
             // panel4
             // 
@@ -117,15 +133,15 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(254, 32);
+            this.panel4.Size = new System.Drawing.Size(319, 32);
             this.panel4.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(191, 6);
+            this.label2.Location = new System.Drawing.Point(110, 6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 20);
+            this.label2.Size = new System.Drawing.Size(101, 17);
             this.label2.TabIndex = 0;
             this.label2.Text = "Digital Devices";
             // 
@@ -136,7 +152,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(254, 502);
+            this.panel1.Size = new System.Drawing.Size(318, 502);
             this.panel1.TabIndex = 0;
             // 
             // dgvAnalog
@@ -155,7 +171,7 @@
             this.dgvAnalog.RowHeadersWidth = 51;
             this.dgvAnalog.RowTemplate.Height = 24;
             this.dgvAnalog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAnalog.Size = new System.Drawing.Size(254, 470);
+            this.dgvAnalog.Size = new System.Drawing.Size(318, 470);
             this.dgvAnalog.TabIndex = 2;
             // 
             // clmName
@@ -172,7 +188,7 @@
             this.clmValue.MinimumWidth = 6;
             this.clmValue.Name = "clmValue";
             this.clmValue.ReadOnly = true;
-            this.clmValue.Width = 80;
+            this.clmValue.Width = 69;
             // 
             // panel3
             // 
@@ -180,23 +196,23 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(254, 32);
+            this.panel3.Size = new System.Drawing.Size(318, 32);
             this.panel3.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(175, 6);
+            this.label1.Location = new System.Drawing.Point(110, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 20);
+            this.label1.Size = new System.Drawing.Size(106, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Analog Devices";
             // 
             // FormWatch
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 508);
+            this.ClientSize = new System.Drawing.Size(649, 508);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -232,9 +248,10 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridView dgvAnalog;
         private System.Windows.Forms.DataGridView dgvDigital;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmName;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewButtonColumn clmBtn;
     }
 }

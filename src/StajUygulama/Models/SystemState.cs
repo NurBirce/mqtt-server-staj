@@ -12,6 +12,8 @@ namespace StajUygulama.Models
     {
         public List<Device<float>> analogDeviceList { get; set; }
         public List<Device<bool>> digitalDeviceList { get; set; }
+        
+
         [JsonInclude]
         public uint lastTopic;
 
@@ -25,7 +27,6 @@ namespace StajUygulama.Models
         public uint getLastTopicId()
         {
             return ++lastTopic;
-        }
-
+        } 
     }
 }

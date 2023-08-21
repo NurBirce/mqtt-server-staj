@@ -9,13 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using StajUygulama.Forms;
 using StajUygulama.Models;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.IO;
 
 namespace StajUygulama.Forms
 {
-    public partial class FrmDigitalDuzenle : Form
+    public partial class FrmDigitalYonetim : Form
     {
         FormMain frm;
-        public FrmDigitalDuzenle(FormMain formMain)
+        public FrmDigitalYonetim(FormMain formMain)
         {
             InitializeComponent();
             frm = formMain;
@@ -30,6 +34,10 @@ namespace StajUygulama.Forms
         {
             frm.systemState.digitalDeviceList[selectedIndex].Name = txtName.Text;
             deviceGoruntule();
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string fileName = "KaratalDevice.json";
+            string jsonString = JsonSerializer.Serialize(frm.systemState, options);
+            File.WriteAllText(fileName, jsonString);
         }
 
         private void deviceGoruntule()
@@ -44,11 +52,28 @@ namespace StajUygulama.Forms
         }
 
         int selectedIndex;
-        private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             selectedIndex = dataGridView1.CurrentRow.Index;
 
             txtName.Text = frm.systemState.digitalDeviceList[selectedIndex].Name;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                dataGridView1.Rows.RemoveAt(dataGridView1.CurrentRow.Index);
+                frm.systemState.digitalDeviceList.Remove(frm.systemState.digitalDeviceList[selectedIndex]);
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string fileName = "KaratalDevice.json";
+                string jsonString = JsonSerializer.Serialize(frm.systemState, options);
+                File.WriteAllText(fileName, jsonString);
+            }
+            else
+            {
+                MessageBox.Show("Silinecek satırı seçin..");
+            }
         }
     }
 }

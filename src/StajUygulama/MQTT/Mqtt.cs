@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using StajUygulama.Forms;
+using System.Windows.Forms;
 
 namespace StajUygulama.MQTT
 {
@@ -82,19 +83,30 @@ namespace StajUygulama.MQTT
             Handle_Received_Application_Message();
         }
 
-        public async Task Publish_Application_Message(string msg)
+        public async Task Publish_Application_Message(string msg, string topic)
         {
-            var mqttFactory = new MqttFactory();
+            Random rnd = new Random();
+            int sayi = rnd.Next(1, 10);
+            msg = sayi.ToString();
 
+            var mqttFactory = new MqttFactory();
+            
             var applicationMessage = new MqttApplicationMessageBuilder()
-                .WithTopic("lamba1")
-                .WithPayload(msg)
-                .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
-                .Build();
+                 .WithTopic(topic)
+                 .WithPayload(msg)
+                 .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
+                 .Build();
 
             await mqttClient.PublishAsync(applicationMessage, CancellationToken.None);
 
             Console.WriteLine("MQTT application message is published.");
+            
+
+                //Random rnd2 = new Random();
+                //int sayi2 = rnd2.Next(0, 2);
+                //msg = sayi2.ToString();
+               
+
 
         }
     }
