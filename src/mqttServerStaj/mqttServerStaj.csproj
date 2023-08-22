@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FF5806A2-8F4C-4E13-AD83-830911EA7B78}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>StajUygulama</RootNamespace>
-    <AssemblyName>StajUygulama</AssemblyName>
+    <RootNamespace>MqttServerStaj</RootNamespace>
+    <AssemblyName>MqttServerStaj</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -146,6 +146,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

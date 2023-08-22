@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StajUygulama.Models
+namespace MqttServerStaj.Models
 {
     internal class Device<T>
     {

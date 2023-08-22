@@ -10,14 +10,14 @@ using System.Windows.Forms;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.IO;
-using StajUygulama.Forms;
-using StajUygulama.Models;
-using StajUygulama.MQTT;
+using MqttServerStaj.Forms;
+using MqttServerStaj.Models;
+using MqttServerStaj.MQTT;
 using MQTTnet.Server;
 using MQTTnet.Client;
 using System.IO.Ports;
 
-namespace StajUygulama.Forms
+namespace MqttServerStaj.Forms
 {
     public partial class FormMain : Form
     {
@@ -156,7 +156,7 @@ namespace StajUygulama.Forms
                 foreach (var d in systemState.analogDeviceList)
                 {
                     sayi = rnd.Next(1, 1000);
-                    mqttObject.Publish_Application_Message(sayi.ToString(), d.Topic);
+                    mqttObject.PublishAnalog(sayi.ToString(), d.Topic);
                 }
                 //foreach (var d in systemState.digitalDeviceList)
                 //{

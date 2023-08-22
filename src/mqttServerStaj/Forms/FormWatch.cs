@@ -1,4 +1,4 @@
-﻿using StajUygulama.Models;
+﻿using MqttServerStaj.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.IO;
 
-namespace StajUygulama.Forms
+namespace MqttServerStaj.Forms
 {
     public partial class FormWatch : Form
     {
@@ -52,7 +52,7 @@ namespace StajUygulama.Forms
             foreach (var dd in fm.systemState.digitalDeviceList)
             {
                 objArr[0] = dd.Name;
-                objArr[1] = dd.Value;
+                objArr[1] = dd.Value ? "ON" : "OFF";
                 dgvDigital.Rows.Add(objArr);
                 nRowIndex = dgvDigital.Rows.Count - 1;
                 dgvDigital.Rows[nRowIndex].Tag = dd;
@@ -80,7 +80,8 @@ namespace StajUygulama.Forms
                 {
                     var d = (Device<bool>)dgvR.Tag;
                     d.Value = value == "1" ? true : false;
-                    dgvR.Cells[1].Value = d.Value ? "True" : "False";
+                    dgvR.Cells[1].Value = d.Value ? "ON" : "OFF";
+                    fm.mqttObject.PublishDigital(d.Value ? "1" : "0", d.Topic);
                 }
             }));
         }
@@ -98,11 +99,11 @@ namespace StajUygulama.Forms
                 string currentValuStr = dgvDigital.CurrentRow.Cells[1].Value.ToString();
                 var device = ((Device<bool>)dgvDigital.CurrentRow.Tag);
                 device.Value = !device.Value;
-                string deger = device.Value ? "True" : "False";
+                string deger = device.Value ? "ON" : "OFF";
                 dgvDigital.CurrentRow.Cells[1].Value = deger;
                 // send signal to plc to turn on/off the device
 
-                fm.mqttObject.Publish_Application_Message(device.Value ? "1" : "0", device.Topic);
+                fm.mqttObject.PublishDigital(device.Value ? "1" : "0", device.Topic);
             }
         }    
     }

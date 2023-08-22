@@ -1,11 +1,11 @@
-﻿using StajUygulama.Forms;
+﻿using MqttServerStaj.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StajUygulama
+namespace MqttServerStaj
 {
     static class Program
     {

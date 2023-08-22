@@ -7,32 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using StajUygulama.Models;
+using MqttServerStaj.Forms;
+using MqttServerStaj.Models;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.IO;
 
-namespace StajUygulama.Forms
+namespace MqttServerStaj.Forms
 {
-    public partial class FrmAnalogYonetim : Form
+    public partial class FrmDigitalYonetim : Form
     {
         FormMain frm;
-        
-        public FrmAnalogYonetim(FormMain formMain)
+        public FrmDigitalYonetim(FormMain formMain)
         {
             InitializeComponent();
             frm = formMain;
         }
 
-        private void FrmAnalogDuzenle_Load(object sender, EventArgs e)
+        private void FrmDigitalDuzenle_Load(object sender, EventArgs e)
         {
             deviceGoruntule();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frm.systemState.analogDeviceList[selectedIndex].Name = txtName.Text;
+            frm.systemState.digitalDeviceList[selectedIndex].Name = txtName.Text;
             deviceGoruntule();
             var options = new JsonSerializerOptions { WriteIndented = true };
             string fileName = "KaratalDevice.json";
@@ -43,22 +43,20 @@ namespace StajUygulama.Forms
         private void deviceGoruntule()
         {
             dataGridView1.Rows.Clear();
-            Object[] dizi = new object[1];
-
-            for (int i = 0; i < frm.systemState.analogDeviceList.Count; i++)
+            object[] dizi = new object[1];
+            for(int i = 0; i < frm.systemState.digitalDeviceList.Count; i++)
             {
-                dizi[0] = frm.systemState.analogDeviceList[i].Name;
+                dizi[0] = frm.systemState.digitalDeviceList[i].Name;
                 dataGridView1.Rows.Add(dizi);
             }
         }
-
 
         int selectedIndex;
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             selectedIndex = dataGridView1.CurrentRow.Index;
 
-            txtName.Text = frm.systemState.analogDeviceList[selectedIndex].Name;
+            txtName.Text = frm.systemState.digitalDeviceList[selectedIndex].Name;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -66,7 +64,7 @@ namespace StajUygulama.Forms
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 dataGridView1.Rows.RemoveAt(dataGridView1.CurrentRow.Index);
-                frm.systemState.analogDeviceList.Remove(frm.systemState.analogDeviceList[selectedIndex]);
+                frm.systemState.digitalDeviceList.Remove(frm.systemState.digitalDeviceList[selectedIndex]);
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string fileName = "KaratalDevice.json";
                 string jsonString = JsonSerializer.Serialize(frm.systemState, options);

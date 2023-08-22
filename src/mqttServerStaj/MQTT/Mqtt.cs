@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using StajUygulama.Forms;
+using MqttServerStaj.Forms;
 using System.Windows.Forms;
 
-namespace StajUygulama.MQTT
+namespace MqttServerStaj.MQTT
 {
     class Mqtt
     {
@@ -49,27 +49,28 @@ namespace StajUygulama.MQTT
         {
             mqttClient.ApplicationMessageReceivedAsync += e =>
             {
-                //e.ApplicationMessage.Topic 
-                // Console.WriteLine("Received application message.");
-                // lblMessage.Invoke(new Action(() =>
-                // {
-                //     lblMessage.Text = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-                // }));
-                var topic = e.ApplicationMessage.Topic.Split('/');
-                var devicType = topic[2];
-                var id = topic[topic.Length-1];
-
-                if(devicType == "dig")
+                try
                 {
-                    formMain.frmWatch?.updateDigitalDevice(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
-                }
-                else
-                {
-                    formMain.frmWatch?.updateAnalogDevice(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
-                }
+                    var topic = e.ApplicationMessage.Topic.Split('/');
+                    var devicType = topic[2];
+                    var id = topic[topic.Length - 1];
 
-                Console.WriteLine("topic: " + e.ApplicationMessage.Topic);
-                Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                    if (devicType == "dig")
+                    {
+                        formMain.frmWatch?.updateDigitalDevice(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                    }
+                    else
+                    {
+                        formMain.frmWatch?.updateAnalogDevice(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                    }
+
+                    Console.WriteLine("topic: " + e.ApplicationMessage.Topic);
+                    Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("Exception in RECIEVE: "+ex.ToString());
+                }
 
                 return Task.CompletedTask;
             };
@@ -100,7 +101,7 @@ namespace StajUygulama.MQTT
             Handle_Received_Application_Message();
         }
 
-        public async Task Publish_Application_Message(string msg, string topic)
+        public async Task Publish(string msg, string topic)
         {
             var mqttFactory = new MqttFactory();
             
@@ -113,14 +114,14 @@ namespace StajUygulama.MQTT
             await mqttClient.PublishAsync(applicationMessage, CancellationToken.None);
 
             Console.WriteLine("MQTT application message is published.");
-            
-
-                //Random rnd2 = new Random();
-                //int sayi2 = rnd2.Next(0, 2);
-                //msg = sayi2.ToString();
-               
-
-
+        }
+        public async Task PublishAnalog(string msg, string topic)
+        {
+            Publish(msg, "ana/" + topic);
+        }
+        public async Task PublishDigital(string msg, string topic)
+        {
+            Publish(msg, "dig/"+topic);
         }
     }
 }

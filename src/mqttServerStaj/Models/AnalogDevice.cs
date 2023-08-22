@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StajUygulama.Models
+namespace MqttServerStaj.Models
 {
-    class DigitalDevice : Device<bool>
+    class AnalogDevice : Device<float>
     {
+    
     }
 }

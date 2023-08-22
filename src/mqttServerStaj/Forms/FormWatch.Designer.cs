@@ -1,4 +1,4 @@
-﻿namespace StajUygulama.Forms
+﻿namespace MqttServerStaj.Forms
 {
     partial class FormWatch
     {
