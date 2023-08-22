@@ -55,10 +55,19 @@ namespace StajUygulama.MQTT
                 // {
                 //     lblMessage.Text = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
                 // }));
-                var strArr = e.ApplicationMessage.Topic.Split('/');
-                var id = strArr[strArr.Length-1];
+                var topic = e.ApplicationMessage.Topic.Split('/');
+                var devicType = topic[2];
+                var id = topic[topic.Length-1];
 
-                formMain.frmWatch?.updateDeviceValue(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                if(devicType == "dig")
+                {
+                    formMain.frmWatch?.updateDigitalDevice(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                }
+                else
+                {
+                    formMain.frmWatch?.updateAnalogDevice(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                }
+
                 Console.WriteLine("topic: " + e.ApplicationMessage.Topic);
                 Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
 
@@ -69,11 +78,19 @@ namespace StajUygulama.MQTT
         public void subscribe(string topic)
         {
             var mqttSubscribeOptions = new MqttTopicFilterBuilder()
-               .WithTopic("karatal2023fatmaproje/c/"+topic)
+               .WithTopic("karatal2023fatmaproje/c/"+topic) // c: client does publish
                .WithAtLeastOnceQoS()
                .Build();
 
             mqttClient.SubscribeAsync(mqttSubscribeOptions, CancellationToken.None);
+        }
+        public void subscribeDigital(string topic)
+        {
+            subscribe("dig/" + topic);
+        }
+        public void subscribeAnalog(string topic)
+        {
+            subscribe("ana/" + topic);
         }
 
         public async Task initiliaze()

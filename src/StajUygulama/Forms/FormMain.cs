@@ -94,13 +94,13 @@ namespace StajUygulama.Forms
             if (sysState != null)
             {
                 systemState = sysState;
-                foreach (var d in systemState.analogDeviceList)
-                {
-                    mqttObject.subscribe(d.Topic);
-                }
+                //foreach (var d in systemState.analogDeviceList)
+                //{
+                //    mqttObject.subscribeAnalog(d.Topic);
+                //}
                 foreach (var d in systemState.digitalDeviceList)
                 {
-                    mqttObject.subscribe(d.Topic);
+                    mqttObject.subscribeDigital(d.Topic);
                 }
             }
         }

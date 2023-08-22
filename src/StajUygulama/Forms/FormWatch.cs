@@ -47,7 +47,6 @@ namespace StajUygulama.Forms
                 dgvAnalog.Rows.Add(objArr);
 
                 nRowIndex = dgvAnalog.Rows.Count - 1;
-                dgvAnalog.Rows[nRowIndex].Tag = ad.Topic;
                 topicDgvrDictionary.Add(ad.Topic.ToLower(), dgvAnalog.Rows[nRowIndex]);
             }
             foreach (var dd in fm.systemState.digitalDeviceList)
@@ -56,12 +55,12 @@ namespace StajUygulama.Forms
                 objArr[1] = dd.Value;
                 dgvDigital.Rows.Add(objArr);
                 nRowIndex = dgvDigital.Rows.Count - 1;
-                dgvDigital.Rows[nRowIndex].Tag = dd.Topic;
+                dgvDigital.Rows[nRowIndex].Tag = dd;
                 topicDgvrDictionary.Add(dd.Topic.ToLower(), dgvDigital.Rows[nRowIndex]);
             }
         }
         
-        public void updateDeviceValue(string topic , string value)
+        public void updateAnalogDevice(string topic , string value)
         {
             fm.Invoke(new Action(() =>
             {
@@ -72,7 +71,20 @@ namespace StajUygulama.Forms
                 }
             }));
         }
-        
+        public void updateDigitalDevice(string topic, string value)
+        {
+            fm.Invoke(new Action(() =>
+            {
+                DataGridViewRow dgvR;
+                if (topicDgvrDictionary.TryGetValue(topic, out dgvR))
+                {
+                    var d = (Device<bool>)dgvR.Tag;
+                    d.Value = value == "1" ? true : false;
+                    dgvR.Cells[1].Value = d.Value ? "True" : "False";
+                }
+            }));
+        }
+
         int selectedIndex;
     private void dgvDigital_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -84,8 +96,13 @@ namespace StajUygulama.Forms
             if (e.ColumnIndex == dgvDigital.Columns["clmBtn"].Index)
             {
                 string currentValuStr = dgvDigital.CurrentRow.Cells[1].Value.ToString();
-                string deger = currentValuStr == "0" ? "1" : "0";
-                fm.mqttObject.Publish_Application_Message(deger, dgvDigital.CurrentRow.Tag.ToString());
+                var device = ((Device<bool>)dgvDigital.CurrentRow.Tag);
+                device.Value = !device.Value;
+                string deger = device.Value ? "True" : "False";
+                dgvDigital.CurrentRow.Cells[1].Value = deger;
+                // send signal to plc to turn on/off the device
+
+                fm.mqttObject.Publish_Application_Message(device.Value ? "1" : "0", device.Topic);
             }
         }    
     }
