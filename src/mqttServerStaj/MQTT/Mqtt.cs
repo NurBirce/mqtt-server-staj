@@ -57,13 +57,13 @@ namespace MqttServerStaj.MQTT
 
                     if (devicType == "dig")
                     {
-                        formMain.frmWatch?.updateDigitalDevice(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                        formMain.frmWatch?.updateOnlyDigitalDevice(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
                     }
-                    else
-                    {
-                        formMain.frmWatch?.updateAnalogDevice(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
-                    }
-
+                    //else
+                    //{
+                    //    formMain.frmWatch?.updateAnalogDevice(id, Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+                    //}
+                    formMain.frmWatch?.sendDigitalsState();
                     Console.WriteLine("topic: " + e.ApplicationMessage.Topic);
                     Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
                 }
@@ -113,7 +113,7 @@ namespace MqttServerStaj.MQTT
 
             await mqttClient.PublishAsync(applicationMessage, CancellationToken.None);
 
-            Console.WriteLine("MQTT application message is published.");
+            Console.WriteLine("*****MQTT application message is published.*****");
         }
         public async Task PublishAnalog(string msg, string topic)
         {

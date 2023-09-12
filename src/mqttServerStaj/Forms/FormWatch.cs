@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.IO;
+using System.IO.Ports;
 
 namespace MqttServerStaj.Forms
 {
@@ -31,6 +32,7 @@ namespace MqttServerStaj.Forms
         private void FormWatch_Load(object sender, EventArgs e)
         {
             displayDevices();
+            
         }
 
         void displayDevices()
@@ -73,21 +75,26 @@ namespace MqttServerStaj.Forms
         }
         public void updateDigitalDevice(string topic, string value)
         {
-            fm.Invoke(new Action(() =>
+            DataGridViewRow dgvR;
+            if (topicDgvrDictionary.TryGetValue(topic, out dgvR))
             {
-                DataGridViewRow dgvR;
-                if (topicDgvrDictionary.TryGetValue(topic, out dgvR))
-                {
-                    var d = (Device<bool>)dgvR.Tag;
-                    d.Value = value == "1" ? true : false;
-                    dgvR.Cells[1].Value = d.Value ? "ON" : "OFF";
-                    fm.mqttObject.PublishDigital(d.Value ? "1" : "0", d.Topic);
-                }
-            }));
+                var d = (Device<bool>)dgvR.Tag;
+                d.Value = value == "1" ? true : false;
+                dgvR.Cells[1].Value = d.Value ? "ON" : "OFF";
+            }
         }
 
-        int selectedIndex;
-    private void dgvDigital_CellClick(object sender, DataGridViewCellEventArgs e)
+        public void updateOnlyDigitalDevice(string topic, string value)
+        {
+            DataGridViewRow dgvR;
+            if (topicDgvrDictionary.TryGetValue(topic, out dgvR))
+            {
+                var d = (Device<bool>)dgvR.Tag;
+                d.Value = value == "1" ? true : false;
+            }
+        }
+
+        private void dgvDigital_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
             {
@@ -96,15 +103,21 @@ namespace MqttServerStaj.Forms
 
             if (e.ColumnIndex == dgvDigital.Columns["clmBtn"].Index)
             {
-                string currentValuStr = dgvDigital.CurrentRow.Cells[1].Value.ToString();
                 var device = ((Device<bool>)dgvDigital.CurrentRow.Tag);
                 device.Value = !device.Value;
-                string deger = device.Value ? "ON" : "OFF";
-                dgvDigital.CurrentRow.Cells[1].Value = deger;
-                // send signal to plc to turn on/off the device
-
-                fm.mqttObject.PublishDigital(device.Value ? "1" : "0", device.Topic);
+                sendDigitalsState();
             }
-        }    
-    }
+        }
+
+        public void sendDigitalsState()
+        {
+            byte[] digitalValues = new byte[] {
+                fm.systemState.digitalDeviceList[0].Value ? Convert.ToByte('1') : Convert.ToByte('0'),
+                fm.systemState.digitalDeviceList[1].Value ? Convert.ToByte('1') : Convert.ToByte('0'),
+                fm.systemState.digitalDeviceList[2].Value ? Convert.ToByte('1') : Convert.ToByte('0')
+            };
+
+            fm.serialPort1.Write(System.Text.Encoding.ASCII.GetString(digitalValues));
+        }
+    } 
 }

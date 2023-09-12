@@ -24,6 +24,8 @@ namespace MqttServerStaj.Forms
         internal SystemState systemState = new SystemState();
 
         internal Mqtt mqttObject;
+        public string data;
+
         public FormMain()
         {
             InitializeComponent();
@@ -58,27 +60,20 @@ namespace MqttServerStaj.Forms
             frmDDuzenle.ShowDialog();
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
+        private async void FormMain_Load(object sender, EventArgs e)
         {
-            initialization();
+            await initialization();
 
-            /*
-            string port = "COM5";
+            string port = "COM6";
             int baudRate = 9600;
-            serialPort1.BaudRate = baudRate;
+            serialPort1.BaudRate = Convert.ToInt32(baudRate);
             serialPort1.PortName = port;
             serialPort1.Open();
-            */
         }
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {
 
-            /*
-            if (serialPort1.IsOpen)
-            {
-                serialPort1.Close();
-            }
-            */
+            
         }
         private async Task initialization()
         {
@@ -94,10 +89,12 @@ namespace MqttServerStaj.Forms
             if (sysState != null)
             {
                 systemState = sysState;
+
                 //foreach (var d in systemState.analogDeviceList)
                 //{
                 //    mqttObject.subscribeAnalog(d.Topic);
                 //}
+
                 foreach (var d in systemState.digitalDeviceList)
                 {
                     mqttObject.subscribeDigital(d.Topic);
@@ -138,34 +135,47 @@ namespace MqttServerStaj.Forms
             frmWatch = null;
         }
 
-        Random rnd = new Random(1000);
         public void timer1_Tick(object sender, EventArgs e)
         {
-            SystemState sysState = null;
-            try
+            if (systemState != null)
             {
-                sysState = JsonSerializer.Deserialize<SystemState>(File.ReadAllText("KaratalDevice.json"));
-            }
-            catch{ 
-            }
-
-            if (sysState != null)
-            {
-                systemState = sysState;
-                int sayi;
                 foreach (var d in systemState.analogDeviceList)
                 {
-                    sayi = rnd.Next(1, 1000);
-                    mqttObject.PublishAnalog(sayi.ToString(), d.Topic);
+                    mqttObject.PublishAnalog(d.Value.ToString(), d.Topic);
                 }
-                //foreach (var d in systemState.digitalDeviceList)
-                //{
-                //    sayi = rnd.Next(0, 1100) % 2;
-                //    mqttObject.Publish_Application_Message(sayi.ToString(), d.Topic);
-                //}
+                foreach (var d in systemState.digitalDeviceList)
+                {
+                    mqttObject.PublishDigital(d.Value ? "1" : "0", d.Topic);
+                }
             }
         }
+        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            if (systemState == null) return;
 
-        
+            data = null;
+            data = serialPort1.ReadLine();
+            if (data == null) return;
+            string[] bothDatda = data.Split('D');
+            if (bothDatda?.Length < 2) return;
+
+            string[] analogData = bothDatda[0].Split('_');
+            string[] digitalData = bothDatda[1].Split('_');
+
+            for (int i = 0; i < analogData.Length; i++)
+            {
+                Console.WriteLine("a: {0}", analogData[i]);
+                systemState.analogDeviceList[i].Value = float.Parse(analogData[i]);
+                frmWatch?.updateAnalogDevice(systemState.analogDeviceList[i].Topic, analogData[i]);
+
+            }
+            for (int i = 0; i < digitalData.Length; i++)
+            {
+                Console.WriteLine("d: {0}", digitalData[i]);
+                systemState.digitalDeviceList[i].Value =digitalData[i] == "1" ? true : false;
+                frmWatch?.updateDigitalDevice(systemState.digitalDeviceList[i].Topic, digitalData[i]);
+            }
+
+        }
     }
 }

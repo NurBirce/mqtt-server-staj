@@ -153,6 +153,10 @@ namespace MqttServerStaj.Forms
             this.timer1.Interval = 3000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // serialPort1
+            // 
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -189,6 +193,6 @@ namespace MqttServerStaj.Forms
         private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
-        private System.IO.Ports.SerialPort serialPort1;
+        public System.IO.Ports.SerialPort serialPort1;
     }
 }
