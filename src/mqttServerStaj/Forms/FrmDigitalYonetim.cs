@@ -27,43 +27,35 @@ namespace MqttServerStaj.Forms
 
         private void FrmDigitalDuzenle_Load(object sender, EventArgs e)
         {
-            deviceGoruntule();
+            deviceView();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void deviceView()
+        {
+            dgvDigital.Rows.Clear();
+            object[] dizi = new object[1];
+            for(int i = 0; i < frm.systemState.digitalDeviceList.Count; i++)
+            {
+                dizi[0] = frm.systemState.digitalDeviceList[i].Name;
+                dgvDigital.Rows.Add(dizi);
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
         {
             frm.systemState.digitalDeviceList[selectedIndex].Name = txtName.Text;
-            deviceGoruntule();
+            deviceView();
             var options = new JsonSerializerOptions { WriteIndented = true };
             string fileName = "KaratalDevice.json";
             string jsonString = JsonSerializer.Serialize(frm.systemState, options);
             File.WriteAllText(fileName, jsonString);
         }
 
-        private void deviceGoruntule()
+        private void btnDelete_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
-            object[] dizi = new object[1];
-            for(int i = 0; i < frm.systemState.digitalDeviceList.Count; i++)
+            if (dgvDigital.SelectedRows.Count > 0)
             {
-                dizi[0] = frm.systemState.digitalDeviceList[i].Name;
-                dataGridView1.Rows.Add(dizi);
-            }
-        }
-
-        int selectedIndex;
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
-            selectedIndex = dataGridView1.CurrentRow.Index;
-
-            txtName.Text = frm.systemState.digitalDeviceList[selectedIndex].Name;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.SelectedRows.Count > 0)
-            {
-                dataGridView1.Rows.RemoveAt(dataGridView1.CurrentRow.Index);
+                dgvDigital.Rows.RemoveAt(dgvDigital.CurrentRow.Index);
                 frm.systemState.digitalDeviceList.Remove(frm.systemState.digitalDeviceList[selectedIndex]);
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string fileName = "KaratalDevice.json";
@@ -74,6 +66,12 @@ namespace MqttServerStaj.Forms
             {
                 MessageBox.Show("Silinecek satırı seçin..");
             }
+        }
+        int selectedIndex;
+        private void dgvDigital_SelectionChanged(object sender, EventArgs e)
+        {
+            selectedIndex = dgvDigital.CurrentRow.Index;
+            txtName.Text = frm.systemState.digitalDeviceList[selectedIndex].Name;
         }
     }
 }

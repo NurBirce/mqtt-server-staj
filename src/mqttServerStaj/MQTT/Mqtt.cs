@@ -113,7 +113,7 @@ namespace MqttServerStaj.MQTT
 
             await mqttClient.PublishAsync(applicationMessage, CancellationToken.None);
 
-            Console.WriteLine("*****MQTT application message is published.*****");
+            Console.WriteLine("MQTT application message is published.");
         }
         public async Task PublishAnalog(string msg, string topic)
         {

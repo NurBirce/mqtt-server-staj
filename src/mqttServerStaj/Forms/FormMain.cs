@@ -32,32 +32,32 @@ namespace MqttServerStaj.Forms
             mqttObject = new Mqtt(this);
         }
 
-        FrmAnalogEkle frmAEkle;
+        FrmAnalogEkle frmAAdd;
         private void ekleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAEkle = new FrmAnalogEkle(this);
-            frmAEkle.ShowDialog();
+            frmAAdd = new FrmAnalogEkle(this);
+            frmAAdd.ShowDialog();
         }
 
-        FrmAnalogYonetim frmADuzenle;
+        FrmAnalogYonetim frmAEdit;
         private void düzenleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmADuzenle = new FrmAnalogYonetim(this);
-            frmADuzenle.ShowDialog();
+            frmAEdit = new FrmAnalogYonetim(this);
+            frmAEdit.ShowDialog();
         }
 
-        FrmDigitalEkle frmDEkle;
+        FrmDigitalEkle frmDAdd;
         private void ekleToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmDEkle = new FrmDigitalEkle(this);
-            frmDEkle.ShowDialog();
+            frmDAdd = new FrmDigitalEkle(this);
+            frmDAdd.ShowDialog();
         }
 
-        FrmDigitalYonetim frmDDuzenle;
+        FrmDigitalYonetim frmDEdit;
         private void düzenleToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmDDuzenle = new FrmDigitalYonetim(this);
-            frmDDuzenle.ShowDialog();
+            frmDEdit = new FrmDigitalYonetim(this);
+            frmDEdit.ShowDialog();
         }
 
         private async void FormMain_Load(object sender, EventArgs e)
@@ -70,11 +70,7 @@ namespace MqttServerStaj.Forms
             serialPort1.PortName = port;
             serialPort1.Open();
         }
-        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
-        {
 
-            
-        }
         private async Task initialization()
         {
             await mqttObject.initiliaze();
@@ -156,11 +152,11 @@ namespace MqttServerStaj.Forms
             data = null;
             data = serialPort1.ReadLine();
             if (data == null) return;
-            string[] bothDatda = data.Split('D');
-            if (bothDatda?.Length < 2) return;
+            string[] bothData = data.Split('D');
+            if (bothData?.Length < 2) return;
 
-            string[] analogData = bothDatda[0].Split('_');
-            string[] digitalData = bothDatda[1].Split('_');
+            string[] analogData = bothData[0].Split('_');
+            string[] digitalData = bothData[1].Split('_');
 
             for (int i = 0; i < analogData.Length; i++)
             {

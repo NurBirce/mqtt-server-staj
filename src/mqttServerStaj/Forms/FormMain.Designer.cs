@@ -169,7 +169,6 @@ namespace MqttServerStaj.Forms
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "FormMain";
             this.Text = "FormMainn";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

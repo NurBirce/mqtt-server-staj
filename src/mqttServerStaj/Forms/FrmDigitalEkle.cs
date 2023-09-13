@@ -23,35 +23,30 @@ namespace MqttServerStaj.Forms
             frm = formMain;
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            frm.systemState.digitalDeviceList.Add(new Device<bool>(txtName.Text, frm.systemState.getLastTopicId().ToString()));
-            deviceGoruntule();
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string fileName = "KaratalDevice.json";
-            string jsonString = JsonSerializer.Serialize(frm.systemState, options);
-            File.WriteAllText(fileName, jsonString);
-        }
-
         private void FrmDigitalEkle_Load(object sender, EventArgs e)
         {
-            deviceGoruntule();
+            deviceView();
         }
 
         
-        private void deviceGoruntule()
+        private void deviceView()
         {
             Object[] dizi = new object[3];
             for (int i = 0; i < frm.systemState.digitalDeviceList.Count; i++)
             {
                 dizi[0] = frm.systemState.digitalDeviceList[i].Name;
-                dataGridView1.Rows.Add(dizi);
+                dgvDigital.Rows.Add(dizi);
             }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            frm.systemState.digitalDeviceList.Add(new Device<bool>(txtName.Text, frm.systemState.getLastTopicId().ToString()));
+            deviceView();
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string fileName = "KaratalDevice.json";
+            string jsonString = JsonSerializer.Serialize(frm.systemState, options);
+            File.WriteAllText(fileName, jsonString);
         }
     }
 }
